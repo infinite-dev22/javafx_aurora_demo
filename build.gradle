@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' // Add shadow plugin
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+group 'inc.nomard'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    javafxVersion = '23'
+    platform = 'win' // Change to 'linux' or 'mac' as needed
+}
+
+dependencies {
+    implementation "org.openjfx:javafx-base:${javafxVersion}:${platform}"
+    implementation "org.openjfx:javafx-graphics:${javafxVersion}:${platform}"
+    implementation "org.openjfx:javafx-controls:${javafxVersion}:${platform}"
+}
+
+application {
+    mainClass = 'inc.nomard.aurora_demo.AuroraCircles'
+}
+
+javafx {
+    version = '23'
+    modules = ['javafx.controls', 'javafx.graphics'] // Removed javafx.fxml if not used
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['--module-path', classpath.asPath]
+}
+
+shadowJar {
+    archiveBaseName.set('AuroraDemo')
+    archiveVersion.set('')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+
+    // Required for JavaFX resource loading
+    append 'META-INF/MANIFEST.MF'
+    mergeServiceFiles()
+}
+
+task runJar(type: Exec, dependsOn: shadowJar) {
+    commandLine 'java', '-Dprism.order=es2', '-jar', shadowJar.archiveFile.get()
+}
+
+test {
+    useJUnitPlatform()
+}
