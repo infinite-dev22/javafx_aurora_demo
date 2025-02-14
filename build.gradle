@@ -253,58 +253,58 @@ jlink {
         installerName = "$app_installer_name"
         appVersion = "$project.version"
         installerOptions = [
-                // "--name", app_installer_name,
                 "--description", project.description,
+                // "--name", app_installer_name,
                 // "--app-version", project.version,
-                "--copyright", app_copyright,
-                "--vendor", app_vendor,
-                "--about-url", app_about_url,
-                "--license-file", app_eula,
-                "--resource-dir", resource_dir,
+                // "--copyright", app_copyright,
+                // "--vendor", app_vendor,
+                // "--about-url", app_about_url,
+                // "--license-file", app_eula,
+                // "--resource-dir", resource_dir,
         ]
 
         if (os.linux) {
-            icon = "$linux_icon"
+            // icon = "$linux_icon"
             installerOptions += [
-                    "--icon", linux_icon,
+                    // "--icon", linux_icon,
                     "--type", /*deb_linux_installer_type*/ rpm_linux_installer_type,
                     "--linux-app-release", aurora_release,
                     "--linux-package-name", app_installer_name,
-                    "--linux-deb-maintainer", app_deb_maintainer,
-                    "--linux-menu-group", app_group_name,
-                    "--linux-app-category", app_group_name,
+                    // "--linux-deb-maintainer", app_deb_maintainer,
+                    // "--linux-menu-group", app_group_name,
+                    // "--linux-app-category", app_group_name,
                     "--linux-shortcut",
             ]
         }
         if (os.macOsX) {
-            icon = "$mac_icon"
+            // icon = "$mac_icon"
             installerOptions += [
-                    "--icon", mac_icon,
+                    // "--icon", mac_icon,
                     "--type", mac_installer_type,
                     "--mac-package-name", app_installer_name,
-                    "--mac-package-signing-prefix", mac_package_signing_prefix,
-                    "--mac-sign",
-                    "--mac-signing-keychain", mac_signing_keychain,
-                    "--mac-signing-key-user-name", mac_signing_key_user_name,
-                    "--mac-app-store",
-                    "--mac-entitlements", mac_entitlements,
-                    "--mac-app-category", app_group_name,
+                    // "--mac-package-signing-prefix", mac_package_signing_prefix,
+                    // "--mac-sign",
+                    // "--mac-signing-keychain", mac_signing_keychain,
+                    // "--mac-signing-key-user-name", mac_signing_key_user_name,
+                    // "--mac-app-store",
+                    // "--mac-entitlements", mac_entitlements,
+                    // "--mac-app-category", app_group_name,
             ]
         }
         if (os.windows) {
-            icon = "$windows_icon"
+            // icon = "$windows_icon"
             installerOptions += [
-                    "--icon", windows_icon,
+                    // "--icon", windows_icon,
                     "--type", windows_installer_type,
                     "--win-dir-chooser",
-                    "--win-help-url", help_url,
+                    // "--win-help-url", help_url,
                     "--win-menu",
-                    "--win-menu-group", app_group_name,
+                    // "--win-menu-group", app_group_name,
                     "--win-per-user-install",
                     "--win-shortcut",
                     "--win-shortcut-prompt",
-                    "--win-update-url", update_url,
-                    "--win-upgrade-uuid", update_uuid,
+                    // "--win-update-url", update_url,
+                    // "--win-upgrade-uuid", update_uuid,
             ]
         }
     }
