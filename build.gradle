@@ -63,7 +63,7 @@ javafx {
 //    binaries {
 //        main {
 //            imageName = "OpenSale-ERP"
-//            mainClass = "inc.nomard.aurora.AuroraCircles4"
+//            mainClass = "inc.nomard.aurora.AuroraCircles3"
 //            debug = true
 //            verbose = true
 //            fallback = false
@@ -203,10 +203,10 @@ test {
 run {
     jvmArgs = [
             "-XX:+UseZGC",
-            "-XX:ActiveProcessorCount=2",
-            "-Dprism.threads=3",
+            "-Dprism.order=d3d,es2,sw",
+            "-Dprism.forceGPU=true",
             "-Dprism.vsync=false",
-            "-Dprism.order=es2",
+            "-Dquantum.multithreaded=true",
             "-Dquantum.verbose=false",
     ]
 }
@@ -240,10 +240,10 @@ jlink {
         noConsole = true
         jvmArgs = [
                 "-XX:+UseZGC",
-                "-XX:ActiveProcessorCount=2",
-                "-Dprism.threads=3",
+                "-Dprism.order=d3d,es2,sw",
+                "-Dprism.forceGPU=true",
                 "-Dprism.vsync=false",
-                "-Dprism.order=es2",
+                "-Dquantum.multithreaded=true",
                 "-Dquantum.verbose=false",
         ]
     }

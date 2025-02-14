@@ -1,7 +1,6 @@
 package inc.nomard.aurora_demo;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -43,7 +42,6 @@ public class AuroraCircles3 extends Application {
     private final AuroraLayer[] layers = new AuroraLayer[NUM_LAYERS];
     private ExecutorService threadPool;
     private List<Future<LayerState>> layerFutures;
-    private Timeline animationTimeline;
     private double globalTime = 0;
 
     public static void main(String[] args) {
@@ -57,6 +55,8 @@ public class AuroraCircles3 extends Application {
         setupAnimation();
 
         Scene scene = new Scene(root, 1280, 720);
+        scene.setFill(null);
+
         stage.setScene(scene);
         stage.show();
 
@@ -70,11 +70,7 @@ public class AuroraCircles3 extends Application {
 
     private Pane createRootPane() {
         Pane pane = new Pane();
-        pane.setBackground(new Background(new BackgroundFill(
-                Color.rgb(15, 15, 15),  // Dark background
-                null,
-                null
-        )));
+        pane.setBackground(new Background(new BackgroundFill(Color.rgb(15, 15, 15), null, null)));
         return pane;
     }
 
@@ -91,7 +87,7 @@ public class AuroraCircles3 extends Application {
 
             @Override
             public void handle(long now) {
-                if (now - lastUpdate >= 16_000_000) { // ~60 FPS
+                if (now - lastUpdate >= 16_666_667) { // ~60 FPS
                     try {
                         // 1. Submit parallel layer calculations
                         layerFutures = Arrays.stream(layers)
@@ -149,9 +145,6 @@ public class AuroraCircles3 extends Application {
     @Override
     public void stop() {
         threadPool.shutdownNow();
-        if (animationTimeline != null) {
-            animationTimeline.stop();
-        }
     }
 
     private static class LayerState {
@@ -218,7 +211,8 @@ public class AuroraCircles3 extends Application {
         private Circle createCircle(Pane parent) {
             Circle c = new Circle();
             c.setOpacity(BASE_OPACITY);
-            c.setBlendMode(BlendMode.SCREEN);  // Soft blending
+            c.setBlendMode(BlendMode.SCREEN);
+            c.setMouseTransparent(true);
             parent.getChildren().add(c);
             return c;
         }
