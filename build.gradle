@@ -1,59 +1,317 @@
 plugins {
-    id 'java'
-    id 'application'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' // Add shadow plugin
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id "java"
+    id "org.javamodularity.moduleplugin" version "$module_plugin"
+    id "application"
+    id "org.openjfx.javafxplugin" version "$jfx_plugin"
+    id "org.beryx.jlink" version "$jlink_plugin"
+    id "org.graalvm.buildtools.native" version "$native_build_tool_plugin"
 }
+
+apply plugin: "java"
+apply plugin: 'org.openjfx.javafxplugin'
 
 group 'inc.nomard'
-version '1.0-SNAPSHOT'
+project.description = "Aurora JavaFX Demo - Fintech Software."
+project.ext.buildDate = LocalDate.now()
+project.version = "$aurora"
+def app_copyright = "Copyright " + LocalDate.now().getYear() + " nomard inc."
 
 repositories {
+    mavenLocal()
     mavenCentral()
-}
-
-ext {
-    javafxVersion = '23'
-    platform = 'win' // Change to 'linux' or 'mac' as needed
-}
-
-dependencies {
-    implementation "org.openjfx:javafx-base:${javafxVersion}:${platform}"
-    implementation "org.openjfx:javafx-graphics:${javafxVersion}:${platform}"
-    implementation "org.openjfx:javafx-controls:${javafxVersion}:${platform}"
-}
-
-application {
-    mainClass = 'inc.nomard.aurora_demo.AuroraCircles'
+    gradlePluginPortal()
+    maven {
+        url "https://sandec.jfrog.io/artifactory/repo"
+    }
+    maven { url 'https://jitpack.io' }
 }
 
 javafx {
-    version = '23'
-    modules = ['javafx.controls', 'javafx.graphics'] // Removed javafx.fxml if not used
+    version = "$jfx"
+    modules = ['javafx.controls', 'javafx.swing']
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.compilerArgs += ['--module-path', classpath.asPath]
-}
+//graalvmNative {
+//    binaries.configureEach {
+//        resources.autodetect()
+//        buildArgs.add("-O4")
+//        buildArgs.addAll(
+//                "--initialize-at-build-time=org.apache.logging.log4j.*",
+//                "-H:+UnlockExperimentalVMOptions",
+//                "-H:-ReduceImplicitExceptionStackTraceInformation"
+//        )
+//    }
+//    toolchainDetection = true
+//    agent {
+//        defaultMode = "standard"
+//        enabled = true
+//        modes {
+//            standard {
+//            }
+//        }
+//        builtinCallerFilter = true
+//        builtinHeuristicFilter = true
+//        enableExperimentalPredefinedClasses = false
+//        enableExperimentalUnsafeAllocationTracing = false
+//        trackReflectionMetadata = true
+//        metadataCopy {
+//            inputTaskNames.add("test")
+//            outputDirectories.add("src/main/resources/META-INF/native-image/<groupId>/<artifactId>/")
+//            mergeWithExisting = true
+//        }
+//    }
+//    binaries {
+//        main {
+//            imageName = "OpenSale-ERP"
+//            mainClass = "inc.nomard.aurora.AuroraCircles3"
+//            debug = true
+//            verbose = true
+//            fallback = false
+//            sharedLibrary = false
+//            quickBuild = false
+//            richOutput = false
+//            buildArgs.addAll(
+//                    '-H:ReflectionConfigurationFiles=reflect-config.json',
+//                    '-H:ResourceConfigurationFiles=resource-config.json'
+//            )
+//        }
+//    }
+//    binaries.configureEach {
+//        buildArgs.add("--verbose")
+//        resources.autodetect()
+//    }
+//}
 
-shadowJar {
-    archiveBaseName.set('AuroraDemo')
-    archiveVersion.set('')
-    archiveClassifier.set('')
-    manifest {
-        attributes 'Main-Class': application.mainClass
+// Task to generate reflection config file
+task generateReflectionConfig {
+    doLast {
+        def reflectionConfig = [
+                [
+                        name                   : "org.kordamp.ikonli.fontawesome",
+                        allDeclaredConstructors: true,
+                        allPublicConstructors  : true,
+                        allDeclaredMethods     : true,
+                        allPublicMethods       : true
+                ],
+                [
+                        name                   : "org.kordamp.ikonli.bootstrapicons",
+                        allDeclaredConstructors: true,
+                        allPublicConstructors  : true,
+                        allDeclaredMethods     : true,
+                        allPublicMethods       : true
+                ],
+                [
+                        name                   : "org.kordamp.ikonli.material",
+                        allDeclaredConstructors: true,
+                        allPublicConstructors  : true,
+                        allDeclaredMethods     : true,
+                        allPublicMethods       : true
+                ],
+                [
+                        name                   : "org.kordamp.ikonli.materialdesign",
+                        allDeclaredConstructors: true,
+                        allPublicConstructors  : true,
+                        allDeclaredMethods     : true,
+                        allPublicMethods       : true
+                ],
+                [
+                        name                   : "org.kordamp.ikonli.Ikon",
+                        allDeclaredConstructors: true,
+                        allPublicConstructors  : true,
+                        allDeclaredMethods     : true,
+                        allPublicMethods       : true,
+                        allDeclaredFields      : true,
+                        allPublicFields        : true
+                ],
+                [
+                        name                   : "org.kordamp.ikonli.IkonHandler",
+                        allDeclaredConstructors: true,
+                        allPublicConstructors  : true,
+                        allDeclaredMethods     : true,
+                        allPublicMethods       : true,
+                        allDeclaredFields      : true,
+                        allPublicFields        : true
+                ],
+                [
+                        name                   : "org.kordamp.ikonli.fontawesome5.FontAwesomeSolidIkonHandler",
+                        allDeclaredConstructors: true,
+                        allPublicConstructors  : true,
+                        allDeclaredMethods     : true,
+                        allPublicMethods       : true,
+                        allDeclaredFields      : true,
+                        allPublicFields        : true
+                ],
+                // Add more classes that need reflection
+        ]
+
+        def configFile = new File("${buildDir}/native/nativeCompile/reflect-config.json")
+        configFile.parentFile.mkdirs()
+        configFile.text = groovy.json.JsonOutput.prettyPrint(
+                groovy.json.JsonOutput.toJson(reflectionConfig)
+        )
     }
-
-    // Required for JavaFX resource loading
-    append 'META-INF/MANIFEST.MF'
-    mergeServiceFiles()
 }
 
-task runJar(type: Exec, dependsOn: shadowJar) {
-    commandLine 'java', '-Dprism.order=es2', '-jar', shadowJar.archiveFile.get()
+// Task to generate resource config file
+task generateResourceConfig {
+    doLast {
+        def resourceConfig = [
+                resources: [
+                        [pattern: ".*\\.css"],
+                        [pattern: ".*\\.png"],
+                        [pattern: ".*\\.fxml"],
+                        [pattern: ".*\\.properties"],
+                        [pattern: ".*\\.gif"],
+                        [pattern: ".*\\.ttf"],
+                        [pattern: ".*\\.json"],
+                        [pattern: "META-INF/.*"],
+                        [pattern: "com/sun/javafx/scene/control/skin/.*\\.css"],
+                        [pattern: "com/sun/javafx/scene/control/skin/modena/.*\\.css"],
+                        [pattern: ".*\\.bss"],
+                        [pattern: ".*\\.wav"],
+                        [pattern: ".*\\.glyph"]
+                ],
+                bundles  : [
+                        ["name": "com.sun.javafx.tk.quantum.QuantumMessagesBundle"],
+                        ["name": "com.sun.javafx.css.parser.CSS"]
+                ]
+        ]
+
+        def configFile = new File("${buildDir}/native/nativeCompile/resource-config.json")
+        configFile.parentFile.mkdirs()
+        configFile.text = groovy.json.JsonOutput.prettyPrint(
+                groovy.json.JsonOutput.toJson(resourceConfig)
+        )
+    }
+}
+
+tasks.nativeCompile.dependsOn(generateReflectionConfig, generateResourceConfig)
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+application {
+    mainModule = "aurora"
+    mainClass = "inc.nomard.aurora.AuroraCircles3"
 }
 
 test {
     useJUnitPlatform()
+}
+
+run {
+    jvmArgs = [
+            "-XX:+UseZGC",
+            "-XX:ActiveProcessorCount=2",
+            "-Dprism.threads=3",
+            "-Dprism.vsync=false",
+            "-Dprism.order=es2",
+            "-Dquantum.verbose=false",
+    ]
+}
+
+jar {
+    manifest {
+        attributes(
+                "Main-Class": "inc.nomard.aurora.AuroraCircles3"
+        )
+    }
+}
+
+ext.os = org.gradle.internal.os.OperatingSystem.current()
+
+jlink {
+    addExtraDependencies(
+            "javafx",
+            "jakarta.inject",
+            "org.jetbrains.annotations",
+            "com.dlsc.gemsfx:gemsfx",
+            "eu.hansolo.fx:charts",
+            "com.calendarfx:view",
+            ":utils"
+    )
+    mergedModule {
+        additive = true
+    }
+    options = ['--bind-services', "--strip-debug", "--no-header-files", "--no-man-pages"]
+    launcher {
+        name = "Aurora JavaFX Demo"
+        noConsole = true
+        jvmArgs = [
+                "-XX:+UseZGC",
+                "-XX:ActiveProcessorCount=2",
+                "-Dprism.threads=3",
+                "-Dprism.vsync=false",
+                "-Dprism.order=es2",
+                "-Dquantum.verbose=false",
+        ]
+    }
+
+    jpackage {
+        imageName = "$app_image_name"
+        installerName = "$app_installer_name"
+        appVersion = "$project.version"
+        installerOptions = [
+                // "--name", app_installer_name,
+                "--description", project.description,
+                // "--app-version", project.version,
+                "--copyright", app_copyright,
+                "--vendor", app_vendor,
+                "--about-url", app_about_url,
+                "--license-file", app_eula,
+                "--resource-dir", resource_dir,
+        ]
+
+        if (os.linux) {
+            icon = "$linux_icon"
+            installerOptions += [
+                    "--icon", linux_icon,
+                    "--type", /*deb_linux_installer_type*/ rpm_linux_installer_type,
+                    "--linux-app-release", aurora_release,
+                    "--linux-package-name", app_installer_name,
+                    "--linux-deb-maintainer", app_deb_maintainer,
+                    "--linux-menu-group", app_group_name,
+                    "--linux-app-category", app_group_name,
+                    "--linux-shortcut",
+            ]
+        }
+        if (os.macOsX) {
+            icon = "$mac_icon"
+            installerOptions += [
+                    "--icon", mac_icon,
+                    "--type", mac_installer_type,
+                    "--mac-package-name", app_installer_name,
+                    "--mac-package-signing-prefix", mac_package_signing_prefix,
+                    "--mac-sign",
+                    "--mac-signing-keychain", mac_signing_keychain,
+                    "--mac-signing-key-user-name", mac_signing_key_user_name,
+                    "--mac-app-store",
+                    "--mac-entitlements", mac_entitlements,
+                    "--mac-app-category", app_group_name,
+            ]
+        }
+        if (os.windows) {
+            icon = "$windows_icon"
+            installerOptions += [
+                    "--icon", windows_icon,
+                    "--type", windows_installer_type,
+                    "--win-dir-chooser",
+                    "--win-help-url", help_url,
+                    "--win-menu",
+                    "--win-menu-group", app_group_name,
+                    "--win-per-user-install",
+                    "--win-shortcut",
+                    "--win-shortcut-prompt",
+                    "--win-update-url", update_url,
+                    "--win-upgrade-uuid", update_uuid,
+            ]
+        }
+    }
+}
+
+dependencies {
+    // Unit Tests
+    implementation "org.junit.jupiter:junit-jupiter-api:$junit"
+    implementation "org.junit.jupiter:junit-jupiter-engine:$junit"
 }
