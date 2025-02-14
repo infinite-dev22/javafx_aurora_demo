@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.CacheHint;
 import javafx.scene.Scene;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -39,7 +40,7 @@ public class AuroraCircles4 extends Application {
 
     private final AuroraLayer[] layers = new AuroraLayer[NUM_LAYERS];
     private final BoxBlur sharedBlur = new BoxBlur();
-    private final ExecutorService threadPool = Executors.newFixedThreadPool(NUM_LAYERS);
+    private final ExecutorService threadPool = Executors.newVirtualThreadPerTaskExecutor();
     private final AtomicReference<Double> globalTime = new AtomicReference<>(0.0);
     private AnimationTimer animationTimer;
 
@@ -54,6 +55,8 @@ public class AuroraCircles4 extends Application {
         setupAnimation();
 
         Scene scene = new Scene(root, 1280, 720);
+        scene.setFill(null);
+
         stage.setScene(scene);
         stage.show();
 
@@ -66,6 +69,8 @@ public class AuroraCircles4 extends Application {
         pane.setBackground(new Background(new BackgroundFill(
                 Color.rgb(15, 15, 15), null, null
         )));
+        pane.setCache(true);
+        pane.setCacheHint(CacheHint.SPEED);
         return pane;
     }
 
@@ -83,7 +88,7 @@ public class AuroraCircles4 extends Application {
 
             @Override
             public void handle(long now) {
-                if (now - lastUpdate >= 16_000_000) { // ~60 FPS
+                if (now - lastUpdate >= 16_666_667) { // ~60 FPS
                     try {
                         // Submit parallel layer calculations
                         futures.clear();
@@ -167,8 +172,10 @@ public class AuroraCircles4 extends Application {
         private Circle createCircle(Pane parent) {
             Circle c = new Circle();
             c.setOpacity(BASE_OPACITY);
+            c.setBlendMode(BlendMode.SCREEN);  // Soft blending
             c.setCache(true);
             c.setCacheHint(CacheHint.SPEED);
+            c.setMouseTransparent(true);
             parent.getChildren().add(c);
             return c;
         }
