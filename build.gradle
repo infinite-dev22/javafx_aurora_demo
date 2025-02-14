@@ -63,7 +63,7 @@ javafx {
 //    binaries {
 //        main {
 //            imageName = "OpenSale-ERP"
-//            mainClass = "inc.nomard.aurora.AuroraCircles3"
+//            mainClass = "inc.nomard.aurora.AuroraCircles4"
 //            debug = true
 //            verbose = true
 //            fallback = false
@@ -192,8 +192,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 application {
-    mainModule = "aurora"
-    mainClass = "inc.nomard.aurora.AuroraCircles3"
+    mainModule = "aurora_demo"
+    mainClass = "inc.nomard.aurora_demo.AuroraCircles3"
 }
 
 test {
@@ -214,7 +214,7 @@ run {
 jar {
     manifest {
         attributes(
-                "Main-Class": "inc.nomard.aurora.AuroraCircles3"
+                "Main-Class": "inc.nomard.aurora_demo.AuroraCircles3"
         )
     }
 }
