@@ -1,0 +1,72 @@
+OpenSale ERP End User License Agreement (EULA)
+
+1. Definitions
+1.1. "Agreement" means this End User License Agreement.
+1.2. "Software" means OpenSale ERP, including any updates, modifications, enhancements, or new versions provided by Licensor.
+1.3. "Licensor" means nomard inc., the developer and owner of the Software.
+1.4. "Licensee" means the individual or entity that has created an account and uses the Software.
+1.5. "Subscription" means the fee-based service allowing access to the Software.
+1.6. "Documentation" means any user guides, specifications, and manuals provided with the Software.
+
+2. Acceptance of Terms
+2.1. By creating an account or using the Software, Licensee agrees to be bound by the terms and conditions of this Agreement.
+2.2. If Licensee does not agree to the terms and conditions of this Agreement, they must not create an account or use the Software.
+
+3. License Grant
+3.1. Subject to the terms and conditions of this Agreement, Licensor grants Licensee a non-exclusive, non-transferable, limited license to access and use the Software and Documentation during the term of this Agreement.
+
+4. Restrictions
+4.1. Licensee shall not:
+a. Modify, translate, reverse engineer, decompile, disassemble, or create derivative works based on the Software.
+b. Distribute, sell, lease, rent, sublicense, or otherwise transfer the Software to any third party.
+c. Remove or alter any proprietary notices or labels on the Software.
+
+5. Subscription and Payment
+5.1. Licensee shall pay Licensor the Subscription fees as set forth in the applicable order form.
+5.2. Subscription fees are non-refundable except as provided in this Agreement.
+5.3. Licensor reserves the right to modify the Subscription fees with prior notice to Licensee.
+
+6. Term and Termination
+6.1. This Agreement is effective as of the date Licensee accepts this Agreement and shall continue until terminated.
+6.2. Either party may terminate this Agreement with thirty (30) days written notice to the other party.
+6.3. Licensor may terminate this Agreement immediately if Licensee fails to comply with any terms of this Agreement.
+6.4. Upon termination, Licensee shall cease all use of the Software and destroy any copies of the Software in Licensee’s possession.
+
+7. Ownership
+7.1. Licensor retains all right, title, and interest in and to the Software, including all intellectual property rights therein.
+
+8. Confidentiality
+8.1. Licensee agrees to maintain the confidentiality of any proprietary information received from Licensor and not to disclose such information to any third party.
+
+9. Disclaimer of Warranties
+9.1. The Software is provided "as is" without warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.
+9.2. Licensor does not warrant that the Software will meet Licensee’s requirements or that the operation of the Software will be uninterrupted or error-free.
+
+10. Limitation of Liability
+10.1. To the maximum extent permitted by law, Licensor shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from:
+a. Licensee’s use or inability to use the Software.
+b. Unauthorized access to or use of Licensee’s data.
+c. Any other matter relating to the Software.
+11. Indemnification
+11.1. Licensee agrees to indemnify, defend, and hold harmless Licensor from and against any claims, liabilities, damages, losses, or expenses arising out of or in any way connected with Licensee’s use of the Software.
+
+12. Governing Law
+12.1. This Agreement shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of laws principles.
+
+13. Entire Agreement
+13.1. This Agreement constitutes the entire agreement between the parties and supersedes all prior or contemporaneous agreements or representations, written or oral, concerning the subject matter of this Agreement.
+
+14. Amendments
+14.1. Licensor may amend this Agreement at any time by providing Licensee with notice of the amendment. Licensee’s continued use of the Software after the effective date of the amendment will constitute Licensee’s acceptance of the amendment.
+
+15. Severability
+15.1. If any provision of this Agreement is held to be invalid or unenforceable, the remaining provisions will remain in full force and effect.
+
+16. Waiver
+16.1. The failure of either party to enforce any right or provision of this Agreement will not be deemed a waiver of such right or provision.
+
+Acceptance:
+
+By creating an account or using the OpenSale ERP, you acknowledge that you have read, understood, and agree to be bound by the terms and conditions of this License Agreement.
+
+nomard inc.

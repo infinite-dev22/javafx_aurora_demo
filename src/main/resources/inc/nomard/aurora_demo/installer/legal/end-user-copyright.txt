@@ -1,0 +1,40 @@
+Copyright Notice
+
+OpenSale ERP Copyright © 2024 nomard inc.. All rights reserved.
+
+This software, "OpenSale ERP," including all accompanying files, documentation, code, and materials, is the property of nomard inc.. The software is protected by copyright laws and international treaty provisions.
+
+Proprietary Information Notice
+
+The software contains proprietary information of nomard inc.; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright law. Reverse engineering, decompiling, and disassembly of the software is strictly prohibited.
+
+Usage Restrictions
+
+License: This software is licensed, not sold. By using this software, you agree to comply with the terms of the license agreement accompanying the software.
+
+Distribution: The distribution of the software is prohibited without the express written consent of nomard inc..
+
+Modification: You may not modify, adapt, or create derivative works of the software.
+
+Use: Use of the software is restricted to authorized users who have obtained a valid license from nomard inc..
+
+Disclaimer
+
+nomard inc. makes no warranties, express or implied, as to the functionality or fitness of this software for any particular purpose. nomard inc. shall not be liable for any damages, including any lost profits, lost savings, or other incidental or consequential damages arising out of the use or inability to use this software.
+
+Acknowledgement
+
+By using this software, you acknowledge that you have read this copyright notice and understand that the software is protected by copyright law and agree to abide by the terms outlined above.
+
+Contact Information
+
+For inquiries or requests regarding this software, please contact:
+
+nomard inc.
+Kampala, Uganda
+Kampala, Kampala Capital City, 101010
+Uganda
+Email: info@nomard.inc
+Phone: 0761728929
+
+© 2024 nomard inc. All rights reserved.
