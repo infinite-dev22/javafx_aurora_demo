@@ -11,7 +11,7 @@ apply plugin: "java"
 apply plugin: 'org.openjfx.javafxplugin'
 
 group 'inc.nomard'
-project.description = "Aurora JavaFX Demo - Fintech Software."
+project.description = "Aurora JavaFX Demo - A JavaFX Demo Application of the Microsoft's User Account Creation Aurora."
 project.ext.buildDate = LocalDate.now()
 project.version = "$aurora"
 def app_copyright = "Copyright " + LocalDate.now().getYear() + " nomard inc."
