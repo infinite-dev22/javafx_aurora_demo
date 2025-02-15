@@ -128,6 +128,11 @@ public class AuroraCircles3 extends Application {
         scene.heightProperty().addListener((obs, ov, nv) ->
                 updateLayerSizes(scene.getWidth(), nv.doubleValue())
         );
+
+        scene.windowProperty().addListener((obs, ov, nv) -> {
+            updateLayerSizes(scene.getWidth(), nv.getWidth());
+            updateLayerSizes(nv.getHeight(), scene.getHeight());
+        });
     }
 
     private void updateLayerSizes(double width, double height) {
